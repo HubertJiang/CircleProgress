@@ -33,7 +33,7 @@ public class ArcProgress extends View {
     private int finishedStrokeColor;
     private int unfinishedStrokeColor;
     private float arcAngle;
-    private String suffixText = "%";
+    private String suffixText = "";//"%";
     private float suffixTextPadding;
 
     private float arcBottomHeight;
@@ -77,14 +77,14 @@ public class ArcProgress extends View {
     public ArcProgress(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        default_text_size =getResources().getDimension(R.dimen.default_text_size);// Utils.sp2px(getResources(), 18);
-        min_size =getResources().getDimensionPixelOffset(R.dimen.min_size);// (int) Utils.dp2px(getResources(), 100);
-        default_text_size =getResources().getDimensionPixelOffset(R.dimen.default_text_size);// Utils.sp2px(getResources(), 40);
+        default_text_size = getResources().getDimension(R.dimen.default_text_size);// Utils.sp2px(getResources(), 18);
+        min_size = getResources().getDimensionPixelOffset(R.dimen.min_size);// (int) Utils.dp2px(getResources(), 100);
+        default_text_size = getResources().getDimensionPixelOffset(R.dimen.default_text_size);// Utils.sp2px(getResources(), 40);
         default_suffix_text_size = getResources().getDimension(R.dimen.default_suffix_text_size);//Utils.sp2px(getResources(), 15);
-        default_suffix_padding =getResources().getDimension(R.dimen.default_suffix_padding);// Utils.dp2px(getResources(), 4);
+        default_suffix_padding = getResources().getDimension(R.dimen.default_suffix_padding);// Utils.dp2px(getResources(), 4);
         default_suffix_text = "%";
         default_bottom_text_size = getResources().getDimension(R.dimen.default_bottom_text_size);//Utils.sp2px(getResources(), 10);
-        default_stroke_width =getResources().getDimension(R.dimen.default_stroke_width);// Utils.dp2px(getResources(), 4);
+        default_stroke_width = getResources().getDimension(R.dimen.default_stroke_width);// Utils.dp2px(getResources(), 4);
 
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ArcProgress, defStyleAttr, 0);
         initByAttributes(attributes);
@@ -265,7 +265,10 @@ public class ArcProgress extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
-        rectF.set(strokeWidth / 2f, strokeWidth / 2f, width - strokeWidth / 2f, MeasureSpec.getSize(heightMeasureSpec) - strokeWidth / 2f);
+        rectF.set(strokeWidth / 2f+getResources().getDimension(R.dimen.padding),
+                strokeWidth / 2f+getResources().getDimension(R.dimen.padding),
+                width - strokeWidth / 2f-getResources().getDimension(R.dimen.padding),
+                MeasureSpec.getSize(heightMeasureSpec) - strokeWidth / 2f-getResources().getDimension(R.dimen.padding));
         float radius = width / 2f;
         float angle = (360 - arcAngle) / 2f;
         arcBottomHeight = radius * (float) (1 - Math.cos(angle / 180 * Math.PI));
@@ -277,29 +280,32 @@ public class ArcProgress extends View {
         float startAngle = 270 - arcAngle / 2f;
         float finishedSweepAngle = progress / (float) getMax() * arcAngle;
         float finishedStartAngle = startAngle;
-        if(progress == 0) finishedStartAngle = 0.01f;
+        if (progress == 0) finishedStartAngle = 0.01f;
         paint.setColor(unfinishedStrokeColor);
         canvas.drawArc(rectF, startAngle, arcAngle, false, paint);
         paint.setColor(finishedStrokeColor);
         canvas.drawArc(rectF, finishedStartAngle, finishedSweepAngle, false, paint);
 
-        String text = String.valueOf(getProgress());
+        String text = String.valueOf(getProgress()) + "%";
         if (!TextUtils.isEmpty(text)) {
             textPaint.setColor(textColor);
             textPaint.setTextSize(textSize);
+            textPaint.setTextAlign(Paint.Align.CENTER);
             float textHeight = textPaint.descent() + textPaint.ascent();
             float textBaseline = (getHeight() - textHeight) / 2.0f;
 
-//            float i = (float) (Utils.dp2px(getResources(),230) / 2.0f * (1 - Math.cos(Math.PI * (finishedSweepAngle - 30) / 180.0f)))+Utils.dp2px(getResources(),16);
-//            float j = (float) (Utils.dp2px(getResources(),230) / 2.0f * (1 - Math.sin(Math.PI * (finishedSweepAngle - 30) / 180.0f)))+Utils.dp2px(getResources(),16);
-
-            canvas.drawText(text, (getWidth() - textPaint.measureText(text)) / 2.0f, textBaseline, textPaint);
+            float i = (float) ((getWidth() / 2.0f-getResources().getDimension(R.dimen.text_padding)) * (1 - Math.cos(Math.PI * (finishedSweepAngle - (90-(360-arcAngle)/2)) / 180.0f))
+                    + getResources().getDimension(R.dimen.padding));
+            float j = (float) ((getWidth() / 2.0f-getResources().getDimension(R.dimen.text_padding)) * (1 - Math.sin(Math.PI * (finishedSweepAngle - (arcAngle/2-90)) / 180.0f))
+                    + getResources().getDimension(R.dimen.padding));
+            canvas.drawText(text, i, j, textPaint);
+//            canvas.drawText(text, (getWidth() - textPaint.measureText(text)) / 2.0f, textBaseline, textPaint);
             textPaint.setTextSize(suffixTextSize);
             float suffixHeight = textPaint.descent() + textPaint.ascent();
-            canvas.drawText(suffixText, getWidth() / 2.0f  + textPaint.measureText(text) + suffixTextPadding, textBaseline + textHeight - suffixHeight, textPaint);
+            canvas.drawText(suffixText, getWidth() / 2.0f + textPaint.measureText(text) + suffixTextPadding, textBaseline + textHeight - suffixHeight, textPaint);
         }
 
-        if(arcBottomHeight == 0) {
+        if (arcBottomHeight == 0) {
             float radius = getWidth() / 2f;
             float angle = (360 - arcAngle) / 2f;
             arcBottomHeight = radius * (float) (1 - Math.cos(angle / 180 * Math.PI));
@@ -334,7 +340,7 @@ public class ArcProgress extends View {
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
-        if(state instanceof Bundle) {
+        if (state instanceof Bundle) {
             final Bundle bundle = (Bundle) state;
             strokeWidth = bundle.getFloat(INSTANCE_STROKE_WIDTH);
             suffixTextSize = bundle.getFloat(INSTANCE_SUFFIX_TEXT_SIZE);
