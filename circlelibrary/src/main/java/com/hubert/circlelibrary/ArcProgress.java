@@ -77,14 +77,14 @@ public class ArcProgress extends View {
     public ArcProgress(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        default_text_size =getResources().getDimensionPixelOffset(R.dimen.default_text_size);// Utils.sp2px(getResources(), 18);
+        default_text_size =getResources().getDimension(R.dimen.default_text_size);// Utils.sp2px(getResources(), 18);
         min_size =getResources().getDimensionPixelOffset(R.dimen.min_size);// (int) Utils.dp2px(getResources(), 100);
         default_text_size =getResources().getDimensionPixelOffset(R.dimen.default_text_size);// Utils.sp2px(getResources(), 40);
-        default_suffix_text_size = getResources().getDimensionPixelOffset(R.dimen.default_suffix_text_size);//Utils.sp2px(getResources(), 15);
-        default_suffix_padding =getResources().getDimensionPixelOffset(R.dimen.default_suffix_padding);// Utils.dp2px(getResources(), 4);
+        default_suffix_text_size = getResources().getDimension(R.dimen.default_suffix_text_size);//Utils.sp2px(getResources(), 15);
+        default_suffix_padding =getResources().getDimension(R.dimen.default_suffix_padding);// Utils.dp2px(getResources(), 4);
         default_suffix_text = "%";
-        default_bottom_text_size = getResources().getDimensionPixelOffset(R.dimen.default_bottom_text_size);//Utils.sp2px(getResources(), 10);
-        default_stroke_width =getResources().getDimensionPixelOffset(R.dimen.default_stroke_width);// Utils.dp2px(getResources(), 4);
+        default_bottom_text_size = getResources().getDimension(R.dimen.default_bottom_text_size);//Utils.sp2px(getResources(), 10);
+        default_stroke_width =getResources().getDimension(R.dimen.default_stroke_width);// Utils.dp2px(getResources(), 4);
 
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ArcProgress, defStyleAttr, 0);
         initByAttributes(attributes);
