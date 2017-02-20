@@ -289,6 +289,10 @@ public class ArcProgress extends View {
             textPaint.setTextSize(textSize);
             float textHeight = textPaint.descent() + textPaint.ascent();
             float textBaseline = (getHeight() - textHeight) / 2.0f;
+
+//            float i = (float) (Utils.dp2px(getResources(),230) / 2.0f * (1 - Math.cos(Math.PI * (finishedSweepAngle - 30) / 180.0f)))+Utils.dp2px(getResources(),16);
+//            float j = (float) (Utils.dp2px(getResources(),230) / 2.0f * (1 - Math.sin(Math.PI * (finishedSweepAngle - 30) / 180.0f)))+Utils.dp2px(getResources(),16);
+
             canvas.drawText(text, (getWidth() - textPaint.measureText(text)) / 2.0f, textBaseline, textPaint);
             textPaint.setTextSize(suffixTextSize);
             float suffixHeight = textPaint.descent() + textPaint.ascent();
