@@ -82,7 +82,7 @@ public class ArcProgress extends View {
         default_text_size = getResources().getDimensionPixelOffset(R.dimen.default_text_size);// Utils.sp2px(getResources(), 40);
         default_suffix_text_size = getResources().getDimension(R.dimen.default_suffix_text_size);//Utils.sp2px(getResources(), 15);
         default_suffix_padding = getResources().getDimension(R.dimen.default_suffix_padding);// Utils.dp2px(getResources(), 4);
-        default_suffix_text = "%";
+        default_suffix_text ="";// "%";
         default_bottom_text_size = getResources().getDimension(R.dimen.default_bottom_text_size);//Utils.sp2px(getResources(), 10);
         default_stroke_width = getResources().getDimension(R.dimen.default_stroke_width);// Utils.dp2px(getResources(), 4);
 
@@ -295,9 +295,9 @@ public class ArcProgress extends View {
             float textBaseline = (getHeight() - textHeight) / 2.0f;
 
             float i = (float) ((getWidth() / 2.0f-getResources().getDimension(R.dimen.text_padding)) * (1 - Math.cos(Math.PI * (finishedSweepAngle - (90-(360-arcAngle)/2)) / 180.0f))
-                    + getResources().getDimension(R.dimen.padding));
+                    + getResources().getDimension(R.dimen.x_padding));
             float j = (float) ((getWidth() / 2.0f-getResources().getDimension(R.dimen.text_padding)) * (1 - Math.sin(Math.PI * (finishedSweepAngle - (arcAngle/2-90)) / 180.0f))
-                    + getResources().getDimension(R.dimen.padding));
+                    + getResources().getDimension(R.dimen.y_padding));
             canvas.drawText(text, i, j, textPaint);
 //            canvas.drawText(text, (getWidth() - textPaint.measureText(text)) / 2.0f, textBaseline, textPaint);
             textPaint.setTextSize(suffixTextSize);
