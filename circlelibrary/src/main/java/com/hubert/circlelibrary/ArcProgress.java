@@ -295,9 +295,9 @@ public class ArcProgress extends View {
             float textBaseline = (getHeight() - textHeight) / 2.0f;
 
             float i = (float) ((getWidth() / 2.0f-getResources().getDimension(R.dimen.text_padding)) * (1 - Math.cos(Math.PI * (finishedSweepAngle - (90-(360-arcAngle)/2)) / 180.0f))
-                    + getResources().getDimension(R.dimen.padding));
+                    + getResources().getDimension(R.dimen.x_padding));
             float j = (float) ((getWidth() / 2.0f-getResources().getDimension(R.dimen.text_padding)) * (1 - Math.sin(Math.PI * (finishedSweepAngle - (arcAngle/2-90)) / 180.0f))
-                    + getResources().getDimension(R.dimen.padding));
+                    + getResources().getDimension(R.dimen.y_padding));
             canvas.drawText(text, i, j, textPaint);
 //            canvas.drawText(text, (getWidth() - textPaint.measureText(text)) / 2.0f, textBaseline, textPaint);
             textPaint.setTextSize(suffixTextSize);
