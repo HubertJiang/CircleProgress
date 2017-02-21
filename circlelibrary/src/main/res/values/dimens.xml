@@ -7,5 +7,7 @@
     <dimen name="default_bottom_text_size">10dp</dimen>
     <dimen name="default_stroke_width">4dp</dimen>
     <dimen name="padding">28dp</dimen>
+    <dimen name="x_padding">14dp</dimen>
+    <dimen name="y_padding">20dp</dimen>
     <dimen name="text_padding">14dp</dimen>
 </resources>
