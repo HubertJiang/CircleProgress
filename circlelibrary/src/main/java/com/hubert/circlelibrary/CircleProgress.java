@@ -13,10 +13,8 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created by bruce on 11/6/14.
- */
-public class ArcProgress extends View {
+
+public class CircleProgress extends View {
     private Paint paint;
     protected Paint textPaint;
 
@@ -30,7 +28,6 @@ public class ArcProgress extends View {
     private int finishedStrokeColor;
     private int unfinishedStrokeColor;
     private float arcAngle;
-    private float suffixTextPadding;
 
 
     private final int default_finished_color = Color.WHITE;
@@ -44,25 +41,23 @@ public class ArcProgress extends View {
 
     private static final String INSTANCE_STATE = "saved_instance";
     private static final String INSTANCE_STROKE_WIDTH = "stroke_width";
-    private static final String INSTANCE_SUFFIX_TEXT_PADDING = "suffix_text_padding";
     private static final String INSTANCE_TEXT_SIZE = "text_size";
     private static final String INSTANCE_TEXT_COLOR = "text_color";
     private static final String INSTANCE_PROGRESS = "progress";
     private static final String INSTANCE_MAX = "max";
     private static final String INSTANCE_FINISHED_STROKE_COLOR = "finished_stroke_color";
     private static final String INSTANCE_UNFINISHED_STROKE_COLOR = "unfinished_stroke_color";
-    private static final String INSTANCE_ARC_ANGLE = "arc_angle";
-    private static final String INSTANCE_SUFFIX = "suffix";
+    private static final String INSTANCE_ARC_ANGLE = "circle_angle";
 
-    public ArcProgress(Context context) {
+    public CircleProgress(Context context) {
         this(context, null);
     }
 
-    public ArcProgress(Context context, AttributeSet attrs) {
+    public CircleProgress(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ArcProgress(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CircleProgress(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         default_text_size = getResources().getDimension(R.dimen.default_text_size);// Utils.sp2px(getResources(), 18);
@@ -70,7 +65,7 @@ public class ArcProgress extends View {
         default_text_size = getResources().getDimensionPixelOffset(R.dimen.default_text_size);// Utils.sp2px(getResources(), 40);
         default_stroke_width = getResources().getDimension(R.dimen.default_stroke_width);// Utils.dp2px(getResources(), 4);
 
-        TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ArcProgress, defStyleAttr, 0);
+        TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CircleProgress, defStyleAttr, 0);
         initByAttributes(attributes);
         attributes.recycle();
 
@@ -78,14 +73,14 @@ public class ArcProgress extends View {
     }
 
     protected void initByAttributes(TypedArray attributes) {
-        finishedStrokeColor = attributes.getColor(R.styleable.ArcProgress_arc_finished_color, default_finished_color);
-        unfinishedStrokeColor = attributes.getColor(R.styleable.ArcProgress_arc_unfinished_color, default_unfinished_color);
-        textColor = attributes.getColor(R.styleable.ArcProgress_arc_text_color, default_text_color);
-        textSize = attributes.getDimension(R.styleable.ArcProgress_arc_text_size, default_text_size);
-        arcAngle = attributes.getFloat(R.styleable.ArcProgress_arc_angle, default_arc_angle);
-        setMax(attributes.getInt(R.styleable.ArcProgress_arc_max, default_max));
-        setProgress(attributes.getInt(R.styleable.ArcProgress_arc_progress, 0));
-        strokeWidth = attributes.getDimension(R.styleable.ArcProgress_arc_stroke_width, default_stroke_width);
+        finishedStrokeColor = attributes.getColor(R.styleable.CircleProgress_circle_finished_color, default_finished_color);
+        unfinishedStrokeColor = attributes.getColor(R.styleable.CircleProgress_circle_unfinished_color, default_unfinished_color);
+        textColor = attributes.getColor(R.styleable.CircleProgress_circle_text_color, default_text_color);
+        textSize = attributes.getDimension(R.styleable.CircleProgress_circle_text_size, default_text_size);
+        arcAngle = attributes.getFloat(R.styleable.CircleProgress_circle_angle, default_arc_angle);
+        setMax(attributes.getInt(R.styleable.CircleProgress_circle_max, default_max));
+        setProgress(attributes.getInt(R.styleable.CircleProgress_circle_progress, 0));
+        strokeWidth = attributes.getDimension(R.styleable.CircleProgress_circle_stroke_width, default_stroke_width);
     }
 
     protected void initPainters() {
@@ -188,14 +183,7 @@ public class ArcProgress extends View {
     }
 
 
-    public float getSuffixTextPadding() {
-        return suffixTextPadding;
-    }
 
-    public void setSuffixTextPadding(float suffixTextPadding) {
-        this.suffixTextPadding = suffixTextPadding;
-        this.invalidate();
-    }
 
     @Override
     protected int getSuggestedMinimumHeight() {
@@ -250,7 +238,6 @@ public class ArcProgress extends View {
         final Bundle bundle = new Bundle();
         bundle.putParcelable(INSTANCE_STATE, super.onSaveInstanceState());
         bundle.putFloat(INSTANCE_STROKE_WIDTH, getStrokeWidth());
-        bundle.putFloat(INSTANCE_SUFFIX_TEXT_PADDING, getSuffixTextPadding());
         bundle.putFloat(INSTANCE_TEXT_SIZE, getTextSize());
         bundle.putInt(INSTANCE_TEXT_COLOR, getTextColor());
         bundle.putInt(INSTANCE_PROGRESS, getProgress());
@@ -266,7 +253,6 @@ public class ArcProgress extends View {
         if (state instanceof Bundle) {
             final Bundle bundle = (Bundle) state;
             strokeWidth = bundle.getFloat(INSTANCE_STROKE_WIDTH);
-            suffixTextPadding = bundle.getFloat(INSTANCE_SUFFIX_TEXT_PADDING);
             textSize = bundle.getFloat(INSTANCE_TEXT_SIZE);
             textColor = bundle.getInt(INSTANCE_TEXT_COLOR);
             setMax(bundle.getInt(INSTANCE_MAX));
