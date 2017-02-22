@@ -20,3 +20,8 @@ apk下载链接[下载地址](https://github.com/HubertJiang/CircleProgress/blob
         app:circle_unfinished_color="@color/colorPrimary"
         app:circle_angle="240" />
 ```
+![示例图](https://raw.githubusercontent.com/HubertJiang/CircleProgress/master/images/2.png)
+
+####注意
+width的值要和height的值相同，也就是圆形时才可以。
+实际开发中也可以根据具体的需求进行相应的开发和修改。
