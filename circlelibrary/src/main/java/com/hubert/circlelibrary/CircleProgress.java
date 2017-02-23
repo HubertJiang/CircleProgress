@@ -183,8 +183,6 @@ public class CircleProgress extends View {
     }
 
 
-
-
     @Override
     protected int getSuggestedMinimumHeight() {
         return min_size;
@@ -199,10 +197,11 @@ public class CircleProgress extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
-        rectF.set(strokeWidth / 2f + getResources().getDimension(R.dimen.padding),
-                strokeWidth / 2f + getResources().getDimension(R.dimen.padding),
-                width - strokeWidth / 2f - getResources().getDimension(R.dimen.padding),
-                MeasureSpec.getSize(heightMeasureSpec) - strokeWidth / 2f - getResources().getDimension(R.dimen.padding));
+        float padding = 2.2f * textSize;
+        rectF.set(strokeWidth / 2f + padding,
+                strokeWidth / 2f + padding,
+                width - strokeWidth / 2f - padding,
+                MeasureSpec.getSize(heightMeasureSpec) - strokeWidth / 2f - padding);
     }
 
     @Override
@@ -222,11 +221,12 @@ public class CircleProgress extends View {
             textPaint.setColor(textColor);
             textPaint.setTextSize(textSize);
             textPaint.setTextAlign(Paint.Align.CENTER);
-
-            float i = (float) ((getWidth() / 2.0f - getResources().getDimension(R.dimen.text_padding)) * (1 - Math.cos(Math.PI * (finishedSweepAngle - (90 - (360 - arcAngle) / 2)) / 180.0f))
-                    + getResources().getDimension(R.dimen.x_padding));
-            float j = (float) ((getWidth() / 2.0f - getResources().getDimension(R.dimen.text_padding)) * (1 - Math.sin(Math.PI * (finishedSweepAngle - (arcAngle / 2 - 90)) / 180.0f))
-                    + getResources().getDimension(R.dimen.y_padding));
+            float xPadding = textSize;
+            float yPadding = textSize * 1.3f;
+            float i = (float) ((getWidth() / 2.0f - textSize) * (1 - Math.cos(Math.PI * (finishedSweepAngle - (90 - (360 - arcAngle) / 2)) / 180.0f))
+                    + xPadding);
+            float j = (float) ((getWidth() / 2.0f - textSize) * (1 - Math.sin(Math.PI * (finishedSweepAngle - (arcAngle / 2 - 90)) / 180.0f))
+                    + yPadding);
             canvas.drawText(text, i, j, textPaint);
         }
 

@@ -14,10 +14,10 @@
     <com.hubert.circlelibrary.CircleProgress
         android:layout_width="300dp"
         android:layout_height="300dp"
-        app:circle_progress="20"
+        app:circle_progress="80"
         android:id="@+id/progress"
         android:layout_centerInParent="true"
-        app:circle_text_size="12dp"
+        app:circle_text_size="20dp"
         app:circle_finished_color="@color/colorAccent"
         app:circle_unfinished_color="@color/colorPrimary"
         app:circle_angle="240" />
