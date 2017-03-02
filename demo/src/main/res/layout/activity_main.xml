@@ -16,8 +16,9 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         app:circle_progress="50"
+        android:layout_centerInParent="true"
         app:circle_text_size="12dp"
-        app:circle_finished_color="@color/colorAccent"
-        app:circle_unfinished_color="@color/colorPrimary"
+        app:circle_finished_color="@color/finished_color"
+        app:circle_unfinished_color="@color/unfinished_color"
         app:circle_angle="240" />
 </RelativeLayout>
