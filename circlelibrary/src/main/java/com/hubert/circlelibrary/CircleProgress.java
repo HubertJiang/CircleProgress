@@ -60,11 +60,10 @@ public class CircleProgress extends View {
     public CircleProgress(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        default_text_size = getResources().getDimension(R.dimen.default_text_size);// Utils.sp2px(getResources(), 18);
-        min_size = getResources().getDimensionPixelOffset(R.dimen.min_size);// (int) Utils.dp2px(getResources(), 100);
-        default_text_size = getResources().getDimensionPixelOffset(R.dimen.default_text_size);// Utils.sp2px(getResources(), 40);
-
-        default_stroke_width = getResources().getDimension(R.dimen.default_stroke_width);// Utils.dp2px(getResources(), 4);
+        default_text_size = getResources().getDimension(R.dimen.default_text_size);
+        min_size = getResources().getDimensionPixelOffset(R.dimen.min_size);
+        default_text_size = getResources().getDimensionPixelOffset(R.dimen.default_text_size);
+        default_stroke_width = getResources().getDimension(R.dimen.default_stroke_width);
 
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CircleProgress, defStyleAttr, 0);
         initByAttributes(attributes);
